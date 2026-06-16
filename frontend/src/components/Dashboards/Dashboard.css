@@ -1,0 +1,15 @@
+.sidebar {
+  height: 100vh;
+  position: fixed;
+  top: 56px; /* height of navbar */
+  left: 0;
+  overflow-y: auto;
+}
+
+header.navbar {
+  z-index: 1030;
+}
+
+main {
+  margin-left: 220px;
+}
