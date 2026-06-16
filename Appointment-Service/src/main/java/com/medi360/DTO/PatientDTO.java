@@ -4,10 +4,10 @@ public class PatientDTO {
 
     private int patientId;
     private String patientName;
-    private String patientGender;       // ✅ needed
-    private String patientDOB;          // ✅ needed
-    private String patientPhoneNumber;  // ✅ needed
-    private String patientMedicalHistory; // ✅ needed
+    private String patientGender;       
+    private String patientDOB;          
+    private String patientPhoneNumber;  
+    private String patientMedicalHistory;
     private String patientStatus;
 
     public int getPatientId() { return patientId; }

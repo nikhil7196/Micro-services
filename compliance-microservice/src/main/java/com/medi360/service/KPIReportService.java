@@ -25,15 +25,13 @@ public class KPIReportService {
 
     public KPIReport addKPIReport(KPIReport kpiReport) {
 
-        // Validate complianceReport is provided
-        if (kpiReport.getComplianceReport() == null) {
+         if (kpiReport.getComplianceReport() == null) {
             throw new RuntimeException("ComplianceReport must be provided");
         }
 
         int reportId = kpiReport.getComplianceReport().getReportId();
 
-        // Fetch the real ComplianceReport from DB (don't trust the passed object)
-        ComplianceReport complianceReport =
+         ComplianceReport complianceReport =
                 complianceReportRepository.findById(reportId)
                         .orElseThrow(() ->
                                 new RuntimeException("ComplianceReport not found with id: " + reportId));

@@ -9,8 +9,6 @@ import com.auditlog.entities.AuditLog;
 @Repository
 public interface AuditlogRepository extends JpaRepository<AuditLog,Integer>{
 	
-//	List<AuditLog> findByUserUserId(int id);
-//	 @Transactional
-//	 void deleteByUserUserId(int id);
+
 }
 

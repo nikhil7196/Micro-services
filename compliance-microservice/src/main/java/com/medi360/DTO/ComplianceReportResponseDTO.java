@@ -10,14 +10,12 @@ public class ComplianceReportResponseDTO {
     private String reportMetrics;
     private LocalDate reportGeneratedDate;
 
-    // IDs of KPI reports auto-created (or linked) with this compliance report
-    private List<Integer> kpiReportIds;
+     private List<Integer> kpiReportIds;
 
     private int statusCode;
     private String message;
 
-    // ── Getters & Setters ──────────────────────────────────────────────────────
-
+ 
     public int getReportId() { return reportId; }
     public void setReportId(int reportId) { this.reportId = reportId; }
 

@@ -39,67 +39,48 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeExchange(exchange -> exchange
 
-                        // ✅ OPTIONS always first — preflight requests
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                        // ✅ Public endpoints
                         .pathMatchers("/api/auth/**").permitAll()
                         .pathMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .pathMatchers("/user/**").permitAll()
 
-                        // ✅ Notification — no /api prefix
                         .pathMatchers("/notification/**").authenticated()
 
-                        // ✅ Patient
                         .pathMatchers("/api/patient/**").hasAnyRole("ADMIN", "RECEPTIONIST", "NURSE", "DOCTOR")
 
-                        // ✅ Doctor — POST /add is public for registration
                         .pathMatchers(HttpMethod.POST, "/api/doctor/add").permitAll()
                         .pathMatchers("/api/doctor/**").hasAnyRole("ADMIN", "DOCTOR", "RECEPTIONIST")
 
-                        // ✅ Ward
                         .pathMatchers("/api/ward/**").hasAnyRole("ADMIN", "NURSE")
 
-                        // ✅ Beds — added COMPLIANCE_OFFICER for KPI calculations
                         .pathMatchers("/api/beds/**").hasAnyRole("ADMIN", "NURSE", "COMPLIANCE_OFFICER")
 
-                        // ✅ Appointment — added COMPLIANCE_OFFICER for fulfillment KPI
                         .pathMatchers("/api/appointment/**").hasAnyRole("ADMIN", "DOCTOR", "RECEPTIONIST", "COMPLIANCE_OFFICER")
 
-                        // ✅ Compliance Reports
                         .pathMatchers("/api/compliance-reports/**").hasAnyRole("ADMIN", "COMPLIANCE_OFFICER")
 
-                        // ✅ KPI Reports — added FINANCEOFFICER
                         .pathMatchers("/api/kpi-report/**").hasAnyRole("ADMIN", "COMPLIANCE_OFFICER", "FINANCEOFFICER")
 
-                        // ✅ Invoice
                         .pathMatchers("/api/invoice/**").hasAnyRole("ADMIN", "FINANCEOFFICER")
 
-                        // ✅ Patient Billing
                         .pathMatchers("/api/patientbilling/**").hasAnyRole("ADMIN", "FINANCEOFFICER")
 
-                        // ✅ Insurance — added COMPLIANCE_OFFICER for claim success KPI
                         .pathMatchers("/api/insurance/**").hasAnyRole("ADMIN", "FINANCEOFFICER", "COMPLIANCE_OFFICER")
 
-                        // ✅ Notification via /api/notification
                         .pathMatchers("/api/notification/**").authenticated()
 
-                        // ✅ Vitals + Care Notes
                         .pathMatchers("/api/vitals/**").hasAnyRole("ADMIN", "NURSE", "DOCTOR")
                         .pathMatchers("/api/care-notes/**").hasAnyRole("ADMIN", "NURSE", "DOCTOR")
 
-                        // ✅ Medical Notes
                         .pathMatchers("/api/medical-notes/**").hasAnyRole("ADMIN", "NURSE", "DOCTOR")
 
-                        // ✅ Actuator
                         .pathMatchers("/actuator/health").permitAll()
                         .pathMatchers("/actuator/**").hasRole("ADMIN")
 
-                        // ✅ Audit Log
                         .pathMatchers(HttpMethod.GET, "/auditlog/**").hasAnyRole("ADMIN", "COMPLIANCE_OFFICER")
                         .pathMatchers(HttpMethod.POST, "/auditlog/**").denyAll()
 
-                        // ✅ Everything else requires authentication
                         .anyExchange().authenticated()
                 )
                 .addFilterAt(jwtAuthenticationFilter, SecurityWebFiltersOrder.AUTHENTICATION)

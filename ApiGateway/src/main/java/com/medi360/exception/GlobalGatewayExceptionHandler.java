@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-@Order(-1) // Higher priority than DefaultErrorWebExceptionHandler
+@Order(-1) 
 public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     private final ObjectMapper objectMapper = new ObjectMapper();

@@ -2,10 +2,10 @@ package com.medi360.DTO;
 
 public class DoctorDTO {
 
-    private int id;                      // ✅ matches Doctor entity id
+    private int id;                      
     private String name;
     private String department;
-    private String availabilitySchedule; // ✅ matches Doctor entity field
+    private String availabilitySchedule; 
     private String email;
 
     public int getId() { return id; }

@@ -11,7 +11,6 @@ import com.medi360.entities.Appointment;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
-    // ✅ Fixed: uses plain int doctorId field instead of doctor.id relationship
     List<Appointment> findByDoctorIdAndDateOrderByTimeAsc(int doctorId, LocalDate date);
 
     List<Appointment> findByDoctorIdOrderByDateAscTimeAsc(int doctorId);

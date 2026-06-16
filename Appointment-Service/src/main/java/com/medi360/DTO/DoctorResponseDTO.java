@@ -2,7 +2,6 @@ package com.medi360.DTO;
 
 public class DoctorResponseDTO {
 
-    // ✅ 'doctor' field name must match Doctor Service response
     private DoctorDTO doctor;
     private int statusCode;
     private String message;

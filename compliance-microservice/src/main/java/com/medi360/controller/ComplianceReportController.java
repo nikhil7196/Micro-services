@@ -25,7 +25,6 @@ public class ComplianceReportController {
         this.complianceReportService = complianceReportService;
     }
 
-    // ✅ ADD
     @PostMapping("/addComplianceReport")
     public ResponseEntity<ComplianceReportResponseDTO> addComplianceReport(
             @RequestBody ComplianceReportDTO complianceReportDTO) {
@@ -37,8 +36,7 @@ public class ComplianceReportController {
                 "Compliance report created successfully"));
     }
 
-    // ✅ UPDATE
-    @PutMapping("/updateComplianceReport")
+     @PutMapping("/updateComplianceReport")
     public ResponseEntity<ComplianceReportResponseDTO> updateComplianceReport(
             @RequestBody ComplianceReportDTO complianceReportDTO) {
 
@@ -49,28 +47,24 @@ public class ComplianceReportController {
                 "Compliance report updated successfully"));
     }
 
-    // ✅ DELETE — explicit PathVariable name
-    @DeleteMapping("/deleteComplianceReport/{id}")
+     @DeleteMapping("/deleteComplianceReport/{id}")
     public ResponseEntity<String> deleteComplianceReport(
             @PathVariable("id") int id) {
         return ResponseEntity.ok(complianceReportService.deleteComplianceReport(id));
     }
 
-    // ✅ GET ALL
-    @GetMapping("/fetchAllComplianceReports")
+     @GetMapping("/fetchAllComplianceReports")
     public ResponseEntity<List<ComplianceReport>> fetchAllComplianceReports() {
         return ResponseEntity.ok(complianceReportService.getAllComplianceReports());
     }
 
-    // ✅ GET BY ID — explicit PathVariable name
-    @GetMapping("/{id}")
+     @GetMapping("/{id}")
     public ResponseEntity<ComplianceReport> getComplianceReportById(
             @PathVariable("id") int id) {
         return ResponseEntity.ok(complianceReportService.getComplianceReportById(id));
     }
 
-    // ✅ PAGINATED — explicit RequestParam names
-    @GetMapping("/paginated")
+     @GetMapping("/paginated")
     public ResponseEntity<Page<ComplianceReport>> getAllComplianceReportsPaginated(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "3") int size,
@@ -84,8 +78,7 @@ public class ComplianceReportController {
                 complianceReportService.getComplianceReportsWithPagination(pageable));
     }
 
-    // ✅ Helper
-    private ComplianceReportResponseDTO buildResponse(ComplianceReport report,
+     private ComplianceReportResponseDTO buildResponse(ComplianceReport report,
                                                        int statusCode, String message) {
         ComplianceReportResponseDTO response = new ComplianceReportResponseDTO();
         response.setReportId(report.getReportId());

@@ -26,8 +26,7 @@ public class KPIReport {
 
     public KPIReport() {}
 
-    // ── Getters & Setters ──────────────────────────────────────────────────────
-
+ 
     public int getKpiId() { return kpiId; }
     public void setKpiId(int kpiId) { this.kpiId = kpiId; }
 

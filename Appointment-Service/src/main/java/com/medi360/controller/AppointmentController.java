@@ -30,7 +30,6 @@ public class AppointmentController {
 		this.appointmentService = appointmentService;
 	}
 
-	// ✅ ADD
 	@PostMapping("/add")
 	public ResponseEntity<AppointmentResponseDTO> addAppointment(@RequestBody AppointmentDTO appointmentDTO)
 			throws PatientNotFoundException, DoctorNotFoundException, SlotNotAvailableException {
@@ -54,7 +53,6 @@ public class AppointmentController {
 		return ResponseEntity.status(201).body(dto);
 	}
 
-	// ✅ UPDATE
 	@PutMapping("/update")
 	public ResponseEntity<AppointmentResponseDTO> updateAppointment(@RequestBody AppointmentDTO appointmentDTO)
 			throws AppointmentNotFoundException, PatientNotFoundException, DoctorNotFoundException,
@@ -79,20 +77,17 @@ public class AppointmentController {
 		return ResponseEntity.ok(dto);
 	}
 
-	// ✅ DELETE
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteAppointment(@PathVariable("id") int id) throws AppointmentNotFoundException {
 		appointmentService.deleteAppointment(id);
 		return ResponseEntity.ok("Appointment deleted successfully");
 	}
 
-	// ✅ GET ALL — returns enriched list with patient and doctor names
 	@GetMapping("/getAll")
 	public ResponseEntity<List<AppointmentWithDetailsDTO>> getAllAppointments() {
 		return ResponseEntity.ok(appointmentService.getAllAppointmentsWithDetails());
 	}
 
-	// ✅ GET BY ID — returns enriched DTO with patient and doctor names
 	@GetMapping("/get/{id}")
 	public ResponseEntity<AppointmentResponseDTO> getAppointmentById(@PathVariable("id") int id)
 			throws AppointmentNotFoundException {
@@ -106,7 +101,6 @@ public class AppointmentController {
 		return ResponseEntity.ok(dto);
 	}
 
-// ✅ PAGINATED — returns enriched page with patient and doctor names
 	@GetMapping("/getAllPaginated")
 	public ResponseEntity<Page<AppointmentWithDetailsDTO>> getAllAppointmentsWithPagination(
 			@RequestParam("pgno") int pgno, @RequestParam("size") int size, @RequestParam("sorting") String sorting,
@@ -116,14 +110,12 @@ public class AppointmentController {
 		return ResponseEntity.ok(appointmentService.getAllAppointmentsWithDetailsPaginated(pageable));
 	}
 
-	// ✅ BY DOCTOR — returns enriched list with patient and doctor names
 	@GetMapping("/doctor/{doctorId}")
 	public ResponseEntity<List<AppointmentWithDetailsDTO>> getAppointmentsByDoctor(
 			@PathVariable("doctorId") int doctorId) throws DoctorNotFoundException {
 		return ResponseEntity.ok(appointmentService.getAppointmentsByDoctorIdWithDetails(doctorId));
 	}
 
-	// ✅ BY DOCTOR + DATE
 	@GetMapping("/doctor/{doctorId}/date")
 	public ResponseEntity<List<Appointment>> getAppointmentsByDoctorAndDate(@PathVariable("doctorId") int doctorId,
 			@RequestParam("date") LocalDate date) throws DoctorNotFoundException {

@@ -2,7 +2,7 @@ package com.medi360.DTO;
 
 public class AppointmentResponseDTO {
 
-    private Object appointment; // ✅ Object — accepts both Appointment and AppointmentWithDetailsDTO
+    private Object appointment; 
     private int statusCode;
     private String message;
     private boolean wasRescheduled;

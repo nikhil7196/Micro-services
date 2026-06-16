@@ -24,10 +24,7 @@ public class ComplianceReport {
   
     private LocalDate reportGeneratedDate;
 
-    /**
-     * Transient field — used only during creation to indicate which KPI category
-     * should be auto-generated. Not persisted to DB.
-     */
+    
     @Transient
     private String kpiCategory;
 
@@ -42,8 +39,7 @@ public class ComplianceReport {
 
     public ComplianceReport() {}
 
-    // ── Getters & Setters ──────────────────────────────────────────────────────
-
+ 
     public int getReportId() { return reportId; }
     public void setReportId(int reportId) { this.reportId = reportId; }
 
@@ -62,8 +58,7 @@ public class ComplianceReport {
     public List<KPIReport> getKpiReports() { return kpiReports; }
     public void setKpiReports(List<KPIReport> kpiReports) { this.kpiReports = kpiReports; }
 
-    // ── Helper methods ─────────────────────────────────────────────────────────
-
+ 
     public void addKpiReport(KPIReport kpiReport) {
         kpiReports.add(kpiReport);
         kpiReport.setComplianceReport(this);

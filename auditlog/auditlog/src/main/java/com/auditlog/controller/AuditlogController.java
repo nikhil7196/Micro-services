@@ -49,10 +49,7 @@ public class AuditlogController {
 		return ResponseEntity.ok(this.as.findById(id));
 	}
 	
-//	@GetMapping("/findAllAuditsOfUser/{id}")
-//	public List<AuditLog> findAllAuditsOfUser(@PathVariable int id){
-//		return this.as.findAllAuditsOfUser(id);
-//	}
+
 	
 	@PostMapping("/log")
     public ResponseEntity<Void> log(@RequestParam String action,@RequestParam int id) {

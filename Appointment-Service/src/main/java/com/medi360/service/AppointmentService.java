@@ -46,7 +46,6 @@ public class AppointmentService {
         this.notificationClient = notificationClient;
     }
 
-    // ✅ Helper — send notification non-critically
     private void sendNotification(int userId, String message, String category) {
         try {
             NotificationDTO dto = new NotificationDTO();
@@ -60,7 +59,6 @@ public class AppointmentService {
         }
     }
 
-    // ✅ Helper — map DoctorResponseDTO to DoctorDTO
     private DoctorDTO mapDoctor(DoctorResponseDTO resp) {
         if (resp == null || resp.getDoctor() == null) return null;
         DoctorDTO doc = new DoctorDTO();
@@ -72,7 +70,6 @@ public class AppointmentService {
         return doc;
     }
 
-    // ✅ Helper — build enriched DTO with patient and doctor names
     private AppointmentWithDetailsDTO buildDTO(Appointment appt) {
         AppointmentWithDetailsDTO dto = new AppointmentWithDetailsDTO();
         dto.setId(appt.getId());
@@ -82,7 +79,6 @@ public class AppointmentService {
         dto.setStatus(appt.getStatus());
         dto.setReason(appt.getReason());
 
-        // ✅ Fetch patient — fallback if Patient Service is down
         try {
             PatientResponseDTO resp = patientClient.getPatientById(appt.getPatientId());
             if (resp != null) dto.setPatient(resp.getPatient());
@@ -93,7 +89,6 @@ public class AppointmentService {
             dto.setPatient(p);
         }
 
-        // ✅ Fetch doctor — fallback if Doctor Service is down
         try {
             DoctorResponseDTO resp = doctorClient.getDoctorById(appt.getDoctorId());
             if (resp != null) dto.setDoctor(mapDoctor(resp));
@@ -155,7 +150,6 @@ public class AppointmentService {
         return null;
     }
 
-    // ✅ ADD APPOINTMENT
     @Transactional
     public Appointment addAppointment(Appointment appointment)
             throws PatientNotFoundException, DoctorNotFoundException, SlotNotAvailableException {
@@ -217,7 +211,6 @@ public class AppointmentService {
         return saved;
     }
 
-    // ✅ UPDATE APPOINTMENT
     @Transactional
     public Appointment updateAppointment(Appointment updated)
             throws AppointmentNotFoundException, PatientNotFoundException,
@@ -315,7 +308,6 @@ public class AppointmentService {
         return saved;
     }
 
-    // ✅ DELETE
     @Transactional
     public void deleteAppointment(int id) throws AppointmentNotFoundException {
         Appointment a = appointmentRepository.findById(id)
@@ -324,14 +316,12 @@ public class AppointmentService {
         appointmentRepository.delete(a);
     }
 
-    // ✅ GET BY ID — raw
     public Appointment getAppointmentById(int id) throws AppointmentNotFoundException {
         return appointmentRepository.findById(id)
                 .orElseThrow(() -> new AppointmentNotFoundException(
                         "Appointment not found with id " + id));
     }
 
-    // ✅ GET ALL WITH PATIENT + DOCTOR NAMES
     public List<AppointmentWithDetailsDTO> getAllAppointmentsWithDetails() {
         return appointmentRepository.findAll()
                 .stream()
@@ -339,12 +329,10 @@ public class AppointmentService {
                 .collect(Collectors.toList());
     }
 
-    // ✅ PAGINATION — raw (for paginated table which may show just IDs)
     public Page<Appointment> getAllAppointmentsWithPagination(Pageable pageable) {
         return appointmentRepository.findAll(pageable);
     }
 
-    // ✅ BY DOCTOR WITH DETAILS
     public List<AppointmentWithDetailsDTO> getAppointmentsByDoctorIdWithDetails(int doctorId)
             throws DoctorNotFoundException {
         try {
@@ -363,12 +351,10 @@ public class AppointmentService {
                 .collect(Collectors.toList());
     }
 
-    // ✅ BY DOCTOR + DATE
     public List<Appointment> getAppointmentsByDoctorAndDate(int doctorId, LocalDate date) {
         return appointmentRepository.findByDoctorIdAndDateOrderByTimeAsc(doctorId, date);
     }
     
- // ✅ GET BY ID WITH DETAILS
     public AppointmentWithDetailsDTO getAppointmentByIdWithDetails(int id)
             throws AppointmentNotFoundException {
         Appointment appt = appointmentRepository.findById(id)
@@ -377,7 +363,6 @@ public class AppointmentService {
         return buildDTO(appt);
     }
 
-    // ✅ PAGINATED WITH DETAILS
     public Page<AppointmentWithDetailsDTO> getAllAppointmentsWithDetailsPaginated(Pageable pageable) {
         return appointmentRepository.findAll(pageable)
                 .map(this::buildDTO);

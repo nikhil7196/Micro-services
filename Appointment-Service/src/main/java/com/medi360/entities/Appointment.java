@@ -33,11 +33,9 @@ public class Appointment {
     @Column
     private String reason;
 
-    // ✅ Fixed: plain int instead of @ManyToOne Patient — microservice pattern
     @Column
     private int patientId;
 
-    // ✅ Fixed: plain int instead of @ManyToOne Doctor — microservice pattern
     @Column
     private int doctorId;
 

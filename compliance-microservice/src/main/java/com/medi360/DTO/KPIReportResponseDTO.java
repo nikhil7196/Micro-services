@@ -9,16 +9,14 @@ public class KPIReportResponseDTO {
     private String kpiMetrics;
     private LocalDate kpiGeneratedDate;
 
-    // The compliance report this KPI belongs to
-    private Integer complianceReportId;
+     private Integer complianceReportId;
 
     private int statusCode;
     private String message;
 
     public KPIReportResponseDTO() {}
 
-    // ── Getters & Setters ──────────────────────────────────────────────────────
-
+ 
     public int getKpiId() { return kpiId; }
     public void setKpiId(int kpiId) { this.kpiId = kpiId; }
 

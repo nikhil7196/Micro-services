@@ -11,8 +11,8 @@ public class AppointmentWithDetailsDTO {
     private int durationMinutes;
     private String status;
     private String reason;
-    private PatientDTO patient; // ✅ frontend reads a.patient?.patientName
-    private DoctorDTO doctor;   // ✅ frontend reads a.doctor?.name
+    private PatientDTO patient; 
+    private DoctorDTO doctor;   
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

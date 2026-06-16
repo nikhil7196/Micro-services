@@ -24,8 +24,7 @@ public class KPIReportController {
     @Autowired
     private KPIReportService kpiReportService;
 
-    // ✅ ADD — wrapped in ResponseEntity
-    @PostMapping("/addKPIReport")
+     @PostMapping("/addKPIReport")
     public ResponseEntity<KPIReportResponseDTO> addKPIReport(
             @RequestBody KPIReportDTO kpiReportDTO) {
 
@@ -33,8 +32,7 @@ public class KPIReportController {
         return ResponseEntity.status(201).body(toDTO(report));
     }
 
-    // ✅ GET ALL — wrapped in ResponseEntity
-    @GetMapping("/fetchAllKPIReports")
+     @GetMapping("/fetchAllKPIReports")
     public ResponseEntity<List<KPIReportResponseDTO>> fetchAllKPIReports() {
         List<KPIReportResponseDTO> list = kpiReportService.getAllKPIReports()
                 .stream()
@@ -43,8 +41,7 @@ public class KPIReportController {
         return ResponseEntity.ok(list);
     }
 
-    // ✅ PAGINATED — explicit RequestParam names + wrapped in ResponseEntity
-    @GetMapping("/fetchAllKPIReports/paginated")
+     @GetMapping("/fetchAllKPIReports/paginated")
     public ResponseEntity<Page<KPIReportResponseDTO>> fetchAllKPIReportsPaginated(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "3") int size,
@@ -64,8 +61,7 @@ public class KPIReportController {
         return ResponseEntity.ok(new PageImpl<>(dtoList, pageable, kpiPage.getTotalElements()));
     }
 
-    // ✅ Helper
-    private KPIReportResponseDTO toDTO(KPIReport report) {
+     private KPIReportResponseDTO toDTO(KPIReport report) {
         KPIReportResponseDTO dto = new KPIReportResponseDTO();
         dto.setKpiId(report.getKpiId());
         dto.setKpiReportScope(report.getKpiReportScope());
