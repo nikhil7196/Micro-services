@@ -13,7 +13,6 @@ export default function DoctorNotification() {
 
     async function fetchNotifications() {
         try {
-            // ✅ Fixed: /notification not /api/notification
             const res = await axios.get(`${BASE}/notification/fetchAllNotificationsPaginated`, {
                 params: { pgno: 0, size: 20, sorting: "notificationId", asc: false },
                 headers

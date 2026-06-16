@@ -31,10 +31,6 @@ public class NotificationService {
 
     @Autowired
     private DoctorFeign df;
-
-    // ✅ ADD NOTIFICATION
-    // Appointment Service sends: userID (doctorId), message, category, status
-    // patientId and doctorId may be 0 — validate only if non-zero
     public NotificationResponseDTO addNotification(NotificationDTO dto) {
 
         Notification notification = new Notification();
@@ -42,8 +38,6 @@ public class NotificationService {
         notification.setCategory(dto.getCategory());
         notification.setStatus(dto.getStatus() != null ? dto.getStatus() : "UNREAD");
         notification.setCreatedDate(LocalDateTime.now());
-
-        // ✅ Handle userID from Appointment Service (sent as doctorId)
         int doctorId = dto.getDoctorId() != 0 ? dto.getDoctorId() : dto.getUserID();
         int patientId = dto.getPatientId();
 
@@ -52,8 +46,6 @@ public class NotificationService {
 
         return mapToDTO(notificationrepo.save(notification));
     }
-
-    // ✅ DELETE
     public String deleteNotification(int id) throws NotificationNotfoundException {
         if (!notificationrepo.existsById(id)) {
             throw new NotificationNotfoundException("Notification not found with id " + id);
@@ -61,27 +53,19 @@ public class NotificationService {
         this.notificationrepo.deleteById(id);
         return "Successfully deleted";
     }
-
-    // ✅ GET ALL
     public List<NotificationResponseDTO> getAllNotification() {
         return notificationrepo.findAll()
                 .stream().map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
-    // ✅ PAGINATION
     public Page<Notification> getAllNotificationsWithPagination(Pageable pageable) {
         return this.notificationrepo.findAll(pageable);
     }
-
-    // ✅ FIND BY ID
     public Notification findById(int id) throws NotificationNotfoundException {
         return notificationrepo.findById(id)
                 .orElseThrow(() -> new NotificationNotfoundException(
                         "Notification not found with id " + id));
     }
-
-    // ✅ GET BY PATIENT — returns empty list instead of exception if no notifications
     public List<NotificationResponseDTO> getPatient(int id) {
         try {
             PatientResponseDTO resp = pf.getPatientById(id).getBody();
@@ -97,8 +81,6 @@ public class NotificationService {
         return notificationrepo.findByPatientId(id)
                 .stream().map(this::mapToDTO).collect(Collectors.toList());
     }
-
-    // ✅ GET BY DOCTOR — returns empty list instead of exception if no notifications
     public List<NotificationResponseDTO> getDoctor(int id) {
         try {
             DoctorResponseDTO resp = df.getDoctorById(id).getBody();
@@ -114,8 +96,6 @@ public class NotificationService {
         return notificationrepo.findByDoctorId(id)
                 .stream().map(this::mapToDTO).collect(Collectors.toList());
     }
-
-    // ✅ GET BY DOCTOR EMAIL
     public List<NotificationResponseDTO> getDoctorByEmail(String email) {
         DoctorResponseDTO resp;
         try {
@@ -131,11 +111,9 @@ public class NotificationService {
         return notificationrepo.findByDoctorId(resp.getDoctorId())
                 .stream().map(this::mapToDTO).collect(Collectors.toList());
     }
-
-    // ✅ Fixed: uses notificationId (lowercase) matching frontend
     private NotificationResponseDTO mapToDTO(Notification n) {
         NotificationResponseDTO dto = new NotificationResponseDTO();
-        dto.setNotificationId(n.getNotificationId()); // ✅ fixed field name
+        dto.setNotificationId(n.getNotificationId());
         dto.setMessage(n.getMessage());
         dto.setCategory(n.getCategory());
         dto.setStatus(n.getStatus());

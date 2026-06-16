@@ -8,12 +8,10 @@ export default function FindPatient() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Input handler 
   const nameHandler = (e) => {
     setName(e.target.value);
   };
 
-  // Search function
   const buttonHandler = async () => {
     try {
       if (!name.trim()) {
@@ -105,7 +103,7 @@ export default function FindPatient() {
         <div>
 
           <p className="mb-2 text-success">
-            ✅ Found {records.length} patient(s)
+             Found {records.length} patient(s)
           </p>
 
           <div className="table-responsive">

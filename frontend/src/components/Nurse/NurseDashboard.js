@@ -1,4 +1,3 @@
-// src/components/Nurse/NurseDashboard.jsx
 import { useNavigate } from "react-router-dom";
 
 const BedIcon = ({ size = 22, color = "currentColor" }) => (

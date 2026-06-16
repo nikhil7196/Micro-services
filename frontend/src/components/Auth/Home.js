@@ -163,32 +163,7 @@ export default function Home() {
           From patient registration to compliance reporting — every workflow, every role, one platform.
         </p>
 
-        {/* <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link to="/register" style={{
-            background: "#1a73a7",
-            color: "white",
-            textDecoration: "none",
-            padding: "0.75rem 2rem",
-            borderRadius: "8px",
-            fontWeight: "700",
-            fontSize: "0.95rem",
-            border: "2px solid #1a73a7",
-          }}>
-            🏥 Get Started
-          </Link>
-          <Link to="/login" style={{
-            background: "transparent",
-            color: "white",
-            textDecoration: "none",
-            padding: "0.75rem 2rem",
-            borderRadius: "8px",
-            fontWeight: "600",
-            fontSize: "0.95rem",
-            border: "2px solid rgba(255,255,255,0.3)",
-          }}>
-            Sign In →
-          </Link>
-        </div> */}
+        
       </div>
 
       <div style={{ background: "#1a73a7", padding: "1.5rem 2rem" }}>

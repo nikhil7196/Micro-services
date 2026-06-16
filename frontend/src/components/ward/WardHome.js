@@ -1,4 +1,3 @@
-// src/components/Ward/WardHome.jsx
 import { Link, Outlet, useLocation } from "react-router-dom";
 import TopNavbar from "../common/TopNavbar";
 

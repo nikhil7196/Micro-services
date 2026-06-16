@@ -1,4 +1,3 @@
-// src/components/Nurse/Vitals/ViewVitals.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -76,7 +75,7 @@ export default function ViewVitals() {
             {selectedPatient && (
                 <div className="alert alert-success d-flex justify-content-between align-items-center mb-4">
                     <span>
-                        ✅ Showing vitals for: <strong>{selectedPatient.patientName}</strong>
+                         Showing vitals for: <strong>{selectedPatient.patientName}</strong>
                         &nbsp;(ID: {selectedPatient.patientId})
                     </span>
                     <button

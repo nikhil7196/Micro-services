@@ -9,7 +9,6 @@ export default function AddKpi() {
     const [date, setDate] = useState("");
     const [complianceId, setComplianceId] = useState("");
 
-    //Scope - only alphabets
     const scopeHandler = (event) => {
         const value = event.target.value;
 
@@ -26,7 +25,6 @@ export default function AddKpi() {
         setDate(event.target.value);
     };
 
-    //Allow only numbers for complianceId
     const complianceIdHandler = (event) => {
         const value = event.target.value;
 
@@ -39,13 +37,11 @@ export default function AddKpi() {
 
         const url = "http://localhost:9002/api/kpi-report/addKPIReport";
 
-        //  Empty validation
         if (!scope.trim() || !metrics.trim() || !date || !complianceId) {
             toast.warning("Please fill all required fields");
             return;
         }
 
-        //  Scope validation
         if (!/^[A-Za-z ]+$/.test(scope)) {
             toast.warning("Scope should contain only letters");
             return;
@@ -81,7 +77,6 @@ export default function AddKpi() {
 
             toast.success("KPI Report added successfully");
 
-            //  Reset form
             setScope("");
             setMetrics("");
             setDate("");

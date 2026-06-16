@@ -5,8 +5,6 @@ public class PatientDTO {
     private int patientId;
     private String patientName;
     private String patientStatus;
-
-    // ✅ Constructors
     public PatientDTO() {}
 
     public PatientDTO(int patientId, String patientName, String patientStatus) {
@@ -14,8 +12,6 @@ public class PatientDTO {
         this.patientName = patientName;
         this.patientStatus = patientStatus;
     }
-
-    // ✅ Getters & Setters
     public int getPatientId() {
         return patientId;
     }

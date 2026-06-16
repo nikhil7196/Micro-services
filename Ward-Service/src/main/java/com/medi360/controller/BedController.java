@@ -26,7 +26,6 @@ public class BedController {
 
     @PostMapping("/create")
     public ResponseEntity<BedResponseDTO> createBed(@RequestBody BedDTO bedDTO) {
-        // ✅ Removed System.out.println("Okkk")
         Bed bed = bedService.createBed(bedDTO.getBed());
         BedResponseDTO response = new BedResponseDTO();
         response.setBed(bed);
@@ -34,8 +33,6 @@ public class BedController {
         response.setMessage("Bed created successfully");
         return ResponseEntity.status(201).body(response);
     }
-
-    // ✅ Fixed: was returning 201 for a GET — changed to 200
     @GetMapping("/getAllBeds")
     public ResponseEntity<List<Bed>> getAllBeds() {
         return ResponseEntity.ok(bedService.getAllBeds());
@@ -43,7 +40,7 @@ public class BedController {
 
     @GetMapping("/getBed/{bedId}")
     public ResponseEntity<BedResponseDTO> getBedById(
-            @PathVariable("bedId") int bedId) { // ✅ explicit name
+            @PathVariable("bedId") int bedId) {
         Bed bed = bedService.getBedById(bedId);
         BedResponseDTO dto = new BedResponseDTO();
         dto.setBed(bed);
@@ -65,14 +62,14 @@ public class BedController {
 
     @DeleteMapping("/delete/{bedId}")
     public ResponseEntity<String> deleteBed(
-            @PathVariable("bedId") int bedId) throws BedNotFoundException { // ✅ explicit name
+            @PathVariable("bedId") int bedId) throws BedNotFoundException {
         bedService.delete(bedId);
         return ResponseEntity.ok("Bed deleted successfully");
     }
 
     @PostMapping("/{bedId}/assign")
     public ResponseEntity<BedResponseDTO> assignPatient(
-            @PathVariable("bedId") int bedId, // ✅ explicit name
+            @PathVariable("bedId") int bedId,
             @RequestBody Map<String, Object> body) throws BedNotFoundException {
         int patientId = (Integer) body.get("patientId");
         Bed bed = bedService.assignPatientToBed(bedId, patientId);
@@ -85,7 +82,7 @@ public class BedController {
 
     @PutMapping("/{bedId}/discharge")
     public ResponseEntity<BedResponseDTO> dischargePatient(
-            @PathVariable("bedId") int bedId) throws BedNotFoundException { // ✅ explicit name
+            @PathVariable("bedId") int bedId) throws BedNotFoundException {
         Bed bed = bedService.dischargePatient(bedId);
         BedResponseDTO dto = new BedResponseDTO();
         dto.setBed(bed);
@@ -93,14 +90,12 @@ public class BedController {
         dto.setMessage("Patient discharged and bed " + bedId + " is now available");
         return ResponseEntity.ok(dto);
     }
-
-    // ✅ Fixed: returns ResponseEntity for consistency
     @GetMapping("/getAllBedsPaginated")
     public ResponseEntity<Page<Bed>> getAllBedsPaginated(
-            @RequestParam("pgno") int pgno,          // ✅ explicit name
-            @RequestParam("size") int size,           // ✅ explicit name
-            @RequestParam("sorting") String sorting,  // ✅ explicit name
-            @RequestParam("asc") boolean asc) {       // ✅ explicit name
+            @RequestParam("pgno") int pgno,
+            @RequestParam("size") int size,
+            @RequestParam("sorting") String sorting,
+            @RequestParam("asc") boolean asc) {
         Sort sort = asc ? Sort.by(sorting).ascending() : Sort.by(sorting).descending();
         Pageable pageable = PageRequest.of(pgno, size, sort);
         return ResponseEntity.ok(this.bedService.getAllBedsWithPaginated(pageable));

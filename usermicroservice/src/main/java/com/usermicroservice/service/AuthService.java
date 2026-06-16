@@ -28,8 +28,6 @@ public class AuthService {
 
     @Autowired
     private AuditlogFeign auditFeign;
-
-    // ✅ REGISTER
     public UserResponseDTO register(RegisterRequestDTO dto) {
 
         if (userRepository.existsByEmail(dto.getEmail())) {
@@ -60,8 +58,6 @@ public class AuthService {
 
         return response;
     }
-
-    // ✅ LOGIN
     public LoginResponseDTO login(LoginRequestDTO dto) {
 
         User user = userRepository.findByEmail(dto.getEmail()).orElse(null);
@@ -102,8 +98,6 @@ public class AuthService {
 
         return response;
     }
-
-    // ✅ UPDATE PASSWORD
     public String updatePassword(String email, String newPassword) {
 
         User user = userRepository.findByEmail(email)
@@ -120,8 +114,6 @@ public class AuthService {
 
         return "Password updated successfully";
     }
-
-    // ✅ Helper — swallows audit failures so main flow is never broken
     private void tryLog(Runnable auditCall) {
         try {
             auditCall.run();

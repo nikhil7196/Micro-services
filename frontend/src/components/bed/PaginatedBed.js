@@ -8,13 +8,11 @@ export default function PaginatedBed() {
     const [totalPages, setTotalPages] = useState(0);
     const [loading,    setLoading]    = useState(false);
     const [error,      setError]      = useState("");
-    // ✅ Patient lookup map: { patientId: patientName }
     const [patientMap, setPatientMap] = useState({});
 
     const headers = { Authorization: "Bearer " + localStorage.getItem("token") };
 
     useEffect(() => {
-        // ✅ Fetch patients once on mount for name lookup
         axios.get("http://localhost:9002/api/patient/fetchAllPatients", { headers })
             .then((res) => {
                 const map = {};

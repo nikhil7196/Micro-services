@@ -21,12 +21,10 @@ export default function DoctorDD() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // ✅ Medical history editing state
     const [editingHistory, setEditingHistory] = useState(false);
     const [medicalHistory, setMedicalHistory] = useState("");
     const [savingHistory, setSavingHistory] = useState(false);
 
-    // ✅ Fetch doctor by email on mount
     useEffect(() => {
         if (!doctorEmail) { setLoading(false); return; }
 
@@ -47,7 +45,6 @@ export default function DoctorDD() {
             });
     }, [doctorEmail]);
 
-    // ✅ Fetch appointments once doctorId is available
     useEffect(() => {
         if (!doctorId) return;
 
@@ -80,7 +77,6 @@ export default function DoctorDD() {
         setActiveModal({ type: "review", appointment });
     };
 
-    // ✅ Save medical history — calls Patient Service via Gateway
     const saveMedicalHistory = (patient) => {
         setSavingHistory(true);
         axios.put(`${BASE}/api/patient/updatePatient`, {
@@ -95,13 +91,11 @@ export default function DoctorDD() {
             }
         }, { headers })
         .then(() => {
-            // ✅ Update local state so UI reflects change immediately
             setAppointments(prev => prev.map(a =>
                 a.patient?.patientId === patient.patientId
                     ? { ...a, patient: { ...a.patient, patientMedicalHistory: medicalHistory } }
                     : a
             ));
-            // ✅ Update active modal patient too
             setActiveModal(prev => ({
                 ...prev,
                 appointment: {
@@ -149,7 +143,7 @@ export default function DoctorDD() {
 
     const closeModal = () => {
         setActiveModal(null);
-        setEditingHistory(false); // ✅ reset on close
+        setEditingHistory(false); 
         setMedicalHistory("");
     };
 

@@ -37,7 +37,6 @@ export default function Login() {
                 else if (role === "COMPLIANCE_OFFICER") navigate("/compilancedd");
             })
             .catch((err) => {
-                // ✅ Fixed: read message from err.response.data.message
                 const msg = err.response?.data?.message || "";
 
                 if (msg.toLowerCase().includes("pending")) {

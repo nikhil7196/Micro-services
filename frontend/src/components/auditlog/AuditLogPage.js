@@ -65,7 +65,6 @@ export default function AuditLogPage() {
                             </thead>
                             <tbody>
                                 {data.map((m) => (
-                                    // ✅ Fixed: added key prop
                                     <tr key={m.auditId}>
                                         <td>{m.auditId}</td>
                                         <td>{m.action}</td>

@@ -43,13 +43,10 @@ public class WardService {
 	public Page<Ward>getAllWardsWithPaginated(Pageable pageable){
 		return this.wardRepository.findAll(pageable);
 	}
-	// Add this to your existing WardService.java
 
 	public String getWardOccupancyReport(int wardId) throws WardNotFoundException {
 	    Ward ward = wardRepository.findById(wardId)
 	            .orElseThrow(() -> new WardNotFoundException("Ward not found with id " + wardId));
-	    
-	    // Logic for Feature 4.5: Occupancy tracking [cite: 74]
 	    long occupiedBeds = ward.getBeds().stream()
 	            .filter(b -> "OCCUPIED".equalsIgnoreCase(b.getBedStatus()))
 	            .count();

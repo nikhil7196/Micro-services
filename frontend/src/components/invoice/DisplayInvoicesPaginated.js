@@ -13,7 +13,6 @@ export default function DisplayInvoicesPaginated() {
 
     const size = 10;
 
-    // ✅ Fixed: removed useCallback with [pgno,sorting,asc] deps — caused infinite loop
     async function fetchInvoices(page, sortCol, order) {
         try {
             setLoading(true);

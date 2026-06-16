@@ -22,7 +22,6 @@ export default function Userapproval() {
 
     async function arapproval(a, id) {
         try {
-            // ✅ Fixed: axios.put instead of axios.get
             await axios.put(`http://localhost:9002/user/approval/${a}/${id}`, {}, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")

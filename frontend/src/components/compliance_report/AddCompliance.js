@@ -45,7 +45,6 @@ export default function AddCompliance() {
 
     const buttonHandler = () => {
 
-        // Prevent duplicate submissions while a request is in flight
         if (isSubmitting.current) return;
 
         let url = "http://localhost:9002/api/compliance-reports/addComplianceReport";
@@ -79,7 +78,6 @@ export default function AddCompliance() {
             }
         };
 
-        // Lock submissions before firing the request
         isSubmitting.current = true;
 
         axios.post(url, data, {
@@ -99,7 +97,6 @@ export default function AddCompliance() {
             toast.error(error.response?.data?.message || error.message);
         })
         .finally(() => {
-            // Unlock once the request settles (success or error)
             isSubmitting.current = false;
         });
     };

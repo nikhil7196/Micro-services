@@ -23,7 +23,6 @@ export default function DisplayAppointments() {
       });
   }, []);
 
-  // Filter logic (by doctor or patient)
   const filteredAppointments = appointments.filter((a) =>
     (a.doctor?.name || "").toLowerCase().includes(search.toLowerCase()) ||
     (a.patient?.patientName || "").toLowerCase().includes(search.toLowerCase())

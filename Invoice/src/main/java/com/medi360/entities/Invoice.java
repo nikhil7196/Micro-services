@@ -30,8 +30,6 @@ public class Invoice {
     @NotBlank
     private String paymentStatus;
 
-    // ✅ Removed: paymentMode, adjustmentAmount, refundStatus
-
     public int getInvoiceId() { return invoiceId; }
     public void setInvoiceId(int invoiceId) { this.invoiceId = invoiceId; }
 

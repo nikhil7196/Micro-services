@@ -23,7 +23,7 @@ export default function DisplayKpi() {
         setRecords(res.data || []);
 
       } catch (err) {
-        console.error("❌ Error fetching KPI data:", err);
+        console.error(" Error fetching KPI data:", err);
       } finally {
         setLoading(false);
       }

@@ -18,7 +18,6 @@ export default function EditDoctor() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Fetch doctor by email on load
   useEffect(() => {
     if (!doctorEmail) return;
     axios

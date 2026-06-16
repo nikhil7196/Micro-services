@@ -12,8 +12,6 @@ import com.medi360.entities.Doctor;
 public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 
     Optional<Doctor> findByEmail(String email);
-
-    // ✅ Added — needed for DoctorService.getDoctorsByName()
     List<Doctor> findByNameContainingIgnoreCase(String name);
 
 }

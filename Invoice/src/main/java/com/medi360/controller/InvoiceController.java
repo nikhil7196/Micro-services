@@ -26,8 +26,6 @@ public class InvoiceController {
 
     @Autowired
     InvoiceService invoiceService;
-
-    // ✅ ADD
     @PostMapping("/addInvoice")
     public ResponseEntity<InvoiceResponseDTO> addInvoice(
             @Valid @RequestBody InvoiceDTO invoiceDTO) throws PatientNotFoundException {
@@ -38,8 +36,6 @@ public class InvoiceController {
         dto.setMessage("Invoice created successfully");
         return ResponseEntity.status(201).body(dto);
     }
-
-    // ✅ GET BY ID
     @GetMapping("/getInvoiceById/{id}")
     public ResponseEntity<InvoiceResponseDTO> getInvoiceById(
             @PathVariable("id") int id) throws InvoiceNotFoundException {
@@ -50,8 +46,6 @@ public class InvoiceController {
         dto.setMessage("Invoice record retrieved successfully");
         return ResponseEntity.ok(dto);
     }
-
-    // ✅ UPDATE
     @PutMapping("/updateInvoice")
     public ResponseEntity<InvoiceResponseDTO> updateInvoice(
             @Valid @RequestBody InvoiceDTO invoiceDTO)
@@ -63,21 +57,15 @@ public class InvoiceController {
         dto.setMessage("Invoice updated successfully");
         return ResponseEntity.ok(dto);
     }
-
-    // ✅ DELETE
     @DeleteMapping("/deleteInvoice/{id}")
     public ResponseEntity<String> deleteInvoice(
             @PathVariable("id") int id) throws InvoiceNotFoundException {
         return ResponseEntity.ok(this.invoiceService.deleteInvoice(id));
     }
-
-    // ✅ GET ALL WITH PATIENT
     @GetMapping("/fetchAllInvoices")
     public ResponseEntity<List<InvoiceWithPatientDTO>> getAllInvoices() {
         return ResponseEntity.ok(invoiceService.getAllInvoicesWithPatient());
     }
-
-    // ✅ PAGINATED WITH PATIENT
     @GetMapping("/fetchAllInvoicesPaginated")
     public ResponseEntity<Page<InvoiceWithPatientDTO>> getAllInvoicesPaginated(
             @RequestParam("pgno") int pgno,
@@ -88,15 +76,11 @@ public class InvoiceController {
         Pageable pageable = PageRequest.of(pgno, size, sort);
         return ResponseEntity.ok(invoiceService.getAllInvoicesWithPatientPaginated(pageable));
     }
-
-    // ✅ GET BY PATIENT
     @GetMapping("/getInvoicesByPatient/{patientId}")
     public ResponseEntity<List<Invoice>> getInvoicesByPatient(
             @PathVariable("patientId") int patientId) {
         return ResponseEntity.ok(invoiceService.getInvoicesByPatient(patientId));
     }
-
-    // ✅ GET BY STATUS
     @GetMapping("/getInvoicesByStatus/{status}")
     public ResponseEntity<List<Invoice>> getInvoicesByStatus(
             @PathVariable("status") String status) {

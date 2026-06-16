@@ -38,11 +38,9 @@ export default function DisplayKpiPaginated() {
         }
       });
 
-      // Correct response handling
       setRecords(res.data.content || []);
-      setPgno(res.data.number);         // current page from backend
-      setTotalPages(res.data.totalPages); // total pages
-
+      setPgno(res.data.number);         
+      setTotalPages(res.data.totalPages);
     } catch (err) {
       console.error(err);
       toast.error(err.response?.data || "Error fetching KPI reports");
@@ -57,7 +55,7 @@ export default function DisplayKpiPaginated() {
 
   const handleSort = (column) => {
     if (sorting === column) {
-      const newAsc = !asc;   // fix toggle bug
+      const newAsc = !asc;   
       setAsc(newAsc);
       fetchKpis(pgno, column, newAsc);
     } else {

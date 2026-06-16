@@ -1,4 +1,4 @@
-// ✅ New
+
 package com.medi360.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -10,6 +10,6 @@ import com.medi360.DTO.PatientResponseDTO;
 public interface PatientClient {
 
     @GetMapping("/api/patient/getPatientById/{id}")
-    PatientResponseDTO getPatientById(@PathVariable("id") int id); // ✅ correct return type
+    PatientResponseDTO getPatientById(@PathVariable("id") int id);
 
 }

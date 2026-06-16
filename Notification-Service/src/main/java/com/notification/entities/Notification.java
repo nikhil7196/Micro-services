@@ -18,13 +18,7 @@ public class Notification {
 	private String category;
 	private String status;
 	private LocalDateTime createdDate;
-	
-//	@ManyToOne
-//	@JoinColumn(name="doctor_id")
 	private int doctorId;
-	
-//	@ManyToOne
-//	@JoinColumn(name="patient_id")
 	private int patientId;
 
 	public Notification(String message, String category, String status, LocalDateTime createdDate,int patientId,int doctorId) {

@@ -17,7 +17,6 @@ export default function FindDoctor() {
   async function handleChange(e) {
     const val = e.target.value;
 
-    // ✅ Allow only letters and spaces
     if (val !== "" && !/^[a-zA-Z\s]*$/.test(val)) return;
 
     setQuery(val);

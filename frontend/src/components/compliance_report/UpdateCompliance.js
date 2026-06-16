@@ -12,14 +12,11 @@ export default function UpdateCompliance() {
   const [metrics, setMetrics] = useState("");
   const [date, setDate] = useState("");
 
-  //  Date error state (NEW)
   const [dateError, setDateError] = useState("");
 
-  //  Today's date
   const todayDate = new Date().toISOString().split("T")[0];
 
-  // Fetch existing record
-  useEffect(() => {
+   useEffect(() => {
 
     const fetchReport = async () => {
       try {
@@ -51,8 +48,7 @@ export default function UpdateCompliance() {
 
   }, [id, navigate]);
 
-  // Scope validation (letters only)
-  const scopeHandler = (e) => {
+   const scopeHandler = (e) => {
     const value = e.target.value;
 
     if (/^[A-Za-z ]*$/.test(value)) {
@@ -60,22 +56,18 @@ export default function UpdateCompliance() {
     }
   };
 
-  //  Update handler
-  const updateButtonHandler = async () => {
+   const updateButtonHandler = async () => {
 
-    // Empty validation
     if (!scope.trim() || !metrics.trim() || !date) {
       toast.warning("Please fill all required fields");
       return;
     }
 
-    // Scope validation
     if (!/^[A-Za-z ]+$/.test(scope)) {
       toast.warning("Scope should contain only letters");
       return;
     }
 
-    // Check if date has error
     if (dateError) {
       return;
     }

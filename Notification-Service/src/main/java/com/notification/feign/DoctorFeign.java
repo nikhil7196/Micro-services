@@ -10,8 +10,6 @@ import com.notification.DTO.DoctorResponseDTO;
 
 @FeignClient(name = "DOCTOR-SERVICE")
 public interface DoctorFeign {
-
-    // ✅ Fixed: explicit @PathVariable name
     @GetMapping("/api/doctor/get/{id}")
     ResponseEntity<DoctorResponseDTO> getDoctorById(@PathVariable("id") int id);
 

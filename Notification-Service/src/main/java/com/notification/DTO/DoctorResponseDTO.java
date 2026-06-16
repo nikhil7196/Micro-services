@@ -1,6 +1,4 @@
 package com.notification.DTO;
-
-// ✅ Matches Doctor Service response: { doctor: { id, name, ... } }
 public class DoctorResponseDTO {
 
     private DoctorData doctor;
@@ -15,8 +13,6 @@ public class DoctorResponseDTO {
 
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
-
-    // ✅ Helper method — returns doctor id for backward compatibility
     public int getDoctorId() {
         return doctor != null ? doctor.getId() : 0;
     }

@@ -27,22 +27,16 @@ public class InvoiceService {
 
     @Autowired
     private PatientClient patientClient;
-
-    // ✅ ADD INVOICE
     public Invoice addInvoice(Invoice invoice) throws PatientNotFoundException {
         int patientId = invoice.getPatient().getPatientId();
         validatePatient(patientId);
         return invoiceRepository.save(invoice);
     }
-
-    // ✅ GET BY ID WITH PATIENT — used by controller
     public InvoiceWithPatientDTO getInvoiceByIdWithPatient(int id) throws InvoiceNotFoundException {
         Invoice invoice = invoiceRepository.findById(id)
                 .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found with id " + id));
         return mapToDTO(invoice);
     }
-
-    // ✅ UPDATE INVOICE
     @Transactional
     public Invoice updateInvoice(Invoice incoming)
             throws InvoiceNotFoundException, PatientNotFoundException {
@@ -57,12 +51,9 @@ public class InvoiceService {
         existing.setAmount(incoming.getAmount());
         existing.setInvoiceDate(incoming.getInvoiceDate());
         existing.setPaymentStatus(incoming.getPaymentStatus());
-        // ✅ Removed: paymentMode, adjustmentAmount, refundStatus
 
         return invoiceRepository.save(existing);
     }
-
-    // ✅ DELETE
     public String deleteInvoice(int id) throws InvoiceNotFoundException {
         if (!invoiceRepository.existsById(id)) {
             throw new InvoiceNotFoundException("Invoice not found with id " + id);
@@ -70,31 +61,21 @@ public class InvoiceService {
         invoiceRepository.deleteById(id);
         return "Successfully deleted invoice";
     }
-
-    // ✅ GET ALL WITH PATIENT
     public List<InvoiceWithPatientDTO> getAllInvoicesWithPatient() {
         return invoiceRepository.findAll()
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
-
-    // ✅ PAGINATED WITH PATIENT
     public Page<InvoiceWithPatientDTO> getAllInvoicesWithPatientPaginated(Pageable pageable) {
         return invoiceRepository.findAll(pageable).map(this::mapToDTO);
     }
-
-    // ✅ GET BY PATIENT
     public List<Invoice> getInvoicesByPatient(int patientId) {
         return invoiceRepository.findByPatient_PatientId(patientId);
     }
-
-    // ✅ GET BY STATUS
     public List<Invoice> getInvoicesByPaymentStatus(String paymentStatus) {
         return invoiceRepository.findByPaymentStatus(paymentStatus);
     }
-
-    // ✅ Helper — validate patient via Feign
     private void validatePatient(int patientId) throws PatientNotFoundException {
         try {
             PatientResponseDTO response = patientClient.getPatientById(patientId);
@@ -107,15 +88,12 @@ public class InvoiceService {
             throw new PatientNotFoundException("Patient not found with id " + patientId);
         }
     }
-
-    // ✅ Helper — map Invoice to InvoiceWithPatientDTO
     private InvoiceWithPatientDTO mapToDTO(Invoice invoice) {
         InvoiceWithPatientDTO dto = new InvoiceWithPatientDTO();
         dto.setInvoiceId(invoice.getInvoiceId());
         dto.setAmount(invoice.getAmount());
         dto.setInvoiceDate(invoice.getInvoiceDate());
         dto.setPaymentStatus(invoice.getPaymentStatus());
-        // ✅ Removed: paymentMode, adjustmentAmount, refundStatus
 
         int patientId = invoice.getPatient().getPatientId();
         try {
@@ -131,8 +109,6 @@ public class InvoiceService {
 
         return dto;
     }
-
-    // ✅ Helper — fallback when Patient Service is unreachable
     private PatientDTO fallbackPatient(int patientId) {
         PatientDTO fallback = new PatientDTO();
         fallback.setPatientId(patientId);

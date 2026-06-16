@@ -27,8 +27,6 @@ public class InsuranceClaimService {
 
     @Autowired
     private PatientClient patientClient;
-
-    // ✅ ADD
     public InsuranceClaim addInsuranceClaim(InsuranceClaim claim)
             throws PatientNotFoundException {
 
@@ -47,16 +45,12 @@ public class InsuranceClaimService {
 
         return insuranceClaimRepository.save(claim);
     }
-
-    // ✅ GET BY ID — raw
     public InsuranceClaim getInsuranceClaimById(int id)
             throws InsuranceClaimNotFoundException {
         return insuranceClaimRepository.findById(id)
                 .orElseThrow(() -> new InsuranceClaimNotFoundException(
                         "InsuranceClaim not found with id " + id));
     }
-
-    // ✅ GET BY ID WITH PATIENT NAME
     public InsuranceClaimWithPatientDTO getInsuranceClaimByIdWithPatient(int id)
             throws InsuranceClaimNotFoundException {
 
@@ -66,8 +60,6 @@ public class InsuranceClaimService {
 
         return buildDTO(claim);
     }
-
-    // ✅ UPDATE
     @Transactional
     public InsuranceClaim updateInsuranceClaim(InsuranceClaim incoming)
             throws InsuranceClaimNotFoundException, PatientNotFoundException {
@@ -97,8 +89,6 @@ public class InsuranceClaimService {
 
         return insuranceClaimRepository.save(existing);
     }
-
-    // ✅ UPDATE STATUS
     public InsuranceClaim updateClaimStatus(int claimId, String status)
             throws InsuranceClaimNotFoundException {
 
@@ -109,8 +99,6 @@ public class InsuranceClaimService {
         claim.setStatus(status);
         return insuranceClaimRepository.save(claim);
     }
-
-    // ✅ DELETE
     public String deleteInsuranceClaim(int id)
             throws InsuranceClaimNotFoundException {
 
@@ -122,32 +110,22 @@ public class InsuranceClaimService {
         insuranceClaimRepository.deleteById(id);
         return "Successfully deleted insurance claim";
     }
-
-    // ✅ GET ALL WITH PATIENT
     public List<InsuranceClaimWithPatientDTO> getAllInsuranceClaimsWithPatient() {
         return insuranceClaimRepository.findAll()
                 .stream()
                 .map(this::buildDTO)
                 .collect(Collectors.toList());
     }
-
-    // ✅ GET ALL PAGINATED WITH PATIENT
     public Page<InsuranceClaimWithPatientDTO> getAllInsuranceClaimsWithPatientPaginated(Pageable pageable) {
         return insuranceClaimRepository.findAll(pageable)
                 .map(this::buildDTO);
     }
-
-    // ✅ GET BY STATUS — returns empty list instead of exception
     public List<InsuranceClaim> getClaimsByStatus(String status) {
         return insuranceClaimRepository.findByStatus(status);
     }
-
-    // ✅ GET BY PATIENT
     public List<InsuranceClaim> getClaimsByPatient(int patientId) {
         return insuranceClaimRepository.findByPatient_PatientId(patientId);
     }
-
-    // ✅ Helper — build enriched DTO with patient name
     private InsuranceClaimWithPatientDTO buildDTO(InsuranceClaim claim) {
         InsuranceClaimWithPatientDTO dto = new InsuranceClaimWithPatientDTO();
         dto.setInsuranceClaimId(claim.getInsuranceClaimId());
@@ -169,8 +147,6 @@ public class InsuranceClaimService {
 
         return dto;
     }
-
-    // ✅ Helper — fallback when Patient Service is unreachable
     private PatientDTO fallbackPatient(int patientId) {
         PatientDTO fallback = new PatientDTO();
         fallback.setPatientId(patientId);

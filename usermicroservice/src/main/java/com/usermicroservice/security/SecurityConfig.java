@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/user/**").permitAll()
                 .requestMatchers("/user/approval/**").permitAll()
-                .anyRequest().authenticated()   // ← myProfile now requires auth
+                .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -25,8 +25,6 @@ public class BedService {
 
     @Autowired
     private PatientClient patientClient;
-
-    // ✅ CREATE BED
     public Bed createBed(Bed bed) {
 
         if (bed.getWard() == null || bed.getWard().getWardId() == 0) {
@@ -48,23 +46,15 @@ public class BedService {
         bed.setWard(ward);
         return bedRepository.save(bed);
     }
-
-    // ✅ FETCH ALL
     public List<Bed> getAllBeds() {
         return bedRepository.findAll();
     }
-
-    // ✅ FETCH BY ID
     public Bed getBedById(int bedId) {
         return bedRepository.findById(bedId).orElse(null);
     }
-
-    // ✅ FETCH BY WARD
     public List<Bed> getBedByWard(int wardId) {
         return bedRepository.findByWard_WardId(wardId);
     }
-
-    // ✅ UPDATE BED
     public Bed updateBed(Bed bed) throws BedNotFoundException {
 
         Bed existingBed = bedRepository.findById(bed.getBedId())
@@ -82,8 +72,6 @@ public class BedService {
 
         return bedRepository.save(existingBed);
     }
-
-    // ✅ DELETE
     public void delete(int bedId) throws BedNotFoundException {
 
         if (!bedRepository.existsById(bedId)) {
@@ -92,13 +80,9 @@ public class BedService {
 
         bedRepository.deleteById(bedId);
     }
-
-    // ✅ PAGINATION
     public Page<Bed> getAllBedsWithPaginated(Pageable pageable) {
         return bedRepository.findAll(pageable);
     }
-
-    // ✅ ASSIGN PATIENT
     public Bed assignPatientToBed(int bedId, int patientId)
             throws BedNotFoundException {
 
@@ -108,8 +92,6 @@ public class BedService {
         if ("OCCUPIED".equalsIgnoreCase(bed.getBedStatus())) {
             throw new IllegalStateException("Bed already occupied");
         }
-
-        // ✅ Fixed: unwrap PatientDTO from PatientResponseDTO
         try {
             PatientResponseDTO response = patientClient.getPatientById(patientId);
             if (response == null || response.getPatient() == null) {
@@ -126,8 +108,6 @@ public class BedService {
 
         return bedRepository.save(bed);
     }
-
-    // ✅ DISCHARGE PATIENT
     public Bed dischargePatient(int bedId) throws BedNotFoundException {
 
         Bed bed = bedRepository.findById(bedId)

@@ -91,19 +91,16 @@ export default function AddAppointment() {
 
     if (loading) return;
 
-    // Basic validation
     if (!date || !time || !durationMinutes || !patientId || !doctorId) {
       toast.warning("All fields are required");
       return;
     }
 
-    // Duration validation
     if (durationMinutes < 5) {
       toast.error("Minimum appointment duration is 5 minutes");
       return;
     }
 
-    // Availability validation
     if (!validateDoctorAvailability()) return;
 
     setLoading(true);
@@ -134,7 +131,6 @@ export default function AddAppointment() {
       const message = res.data?.message || "Appointment created successfully";
       toast.success(message);
 
-      // Reset form
       setDate("");
       setTime("");
       setDurationMinutes(30);

@@ -154,7 +154,6 @@ export default function UpdateAppointment() {
         }
       );
 
-      //RESCHEDULE MESSAGE
       const appt = res.data?.appointment;
 
       let message;

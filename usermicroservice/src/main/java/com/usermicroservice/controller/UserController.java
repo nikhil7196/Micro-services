@@ -31,43 +31,31 @@ public class UserController {
 
     @Autowired
     private UserService us;
-
-    // ✅ ADD USER
     @PostMapping("/insertuserdata")
     public ResponseEntity<UserResponseDTO> addUser(@RequestBody UserDTO userDto) {
         return ResponseEntity.ok(us.addUser(userDto));
     }
-
-    // ✅ USER APPROVAL — explicit PathVariable names
     @PutMapping("/approval/{status}/{id}")
     public ResponseEntity<UserResponseDTO> userApproval(
             @PathVariable("status") String status,
             @PathVariable("id") int id) {
         return ResponseEntity.ok(us.userApproval(status, id));
     }
-
-    // ✅ UPDATE USER — explicit PathVariable name
     @PutMapping("/updateuser/{id}")
     public ResponseEntity<UserResponseDTO> updateUser(
             @PathVariable("id") int id,
             @RequestBody UserDTO userDto) {
         return ResponseEntity.ok(us.updateUser(id, userDto));
     }
-
-    // ✅ DELETE USER — explicit PathVariable name
     @DeleteMapping("/deleteuser/{id}")
     public ResponseEntity<String> deleteUser(
             @PathVariable("id") int id) throws UserNotFoundException {
         return ResponseEntity.ok(us.deleteUser(id));
     }
-
-    // ✅ GET ALL USERS
     @GetMapping("/fetchallusers")
     public ResponseEntity<List<UserResponseDTO>> getAllUser() {
         return ResponseEntity.ok(us.getAllUser());
     }
-
-    // ✅ GET ALL PAGINATED
     @GetMapping("/fetchAllUsersPaginated")
     public ResponseEntity<Page<User>> getAllUsersPaginated(
             @RequestParam("pgno") int pgno,
@@ -78,15 +66,11 @@ public class UserController {
         Pageable pageable = PageRequest.of(pgno, size, sort);
         return ResponseEntity.ok(us.getAllUsersWithPagination(pageable));
     }
-
-    // ✅ FIND BY ID — explicit PathVariable name
     @GetMapping("/findbyid/{id}")
     public ResponseEntity<UserResponseDTO> findById(
             @PathVariable("id") int id) throws UserNotFoundException {
         return ResponseEntity.ok(us.findById(id));
     }
-
-    // ✅ MY PROFILE
     @GetMapping("/myProfile")
     public ResponseEntity<?> getMyProfile(Authentication authentication) {
         if (authentication == null) {

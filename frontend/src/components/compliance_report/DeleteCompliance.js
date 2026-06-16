@@ -23,7 +23,6 @@ export default function DeleteCompliance() {
                 
                 toast.success("Compliance Report deleted successfully");
 
-                // Navigate after short delay (optional but smoother UX)
                 setTimeout(() => {
                     navigate("/compliance_report/display");
                 }, 1000);

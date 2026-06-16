@@ -97,7 +97,7 @@ export default function Register() {
                     )}
                     {success && (
                         <div className="alert alert-success py-2 small" role="alert">
-                            ✅ {success}
+                             {success}
                         </div>
                     )}
 

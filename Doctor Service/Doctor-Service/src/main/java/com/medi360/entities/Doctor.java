@@ -27,10 +27,6 @@ public class Doctor {
     @Column(unique = true)
     private String email;
 
-    // ✅ Removed @OneToMany appointments — Appointment is in a separate microservice
-    // ✅ Removed @JsonIgnore — no longer needed
-    // ✅ Removed List<Appointment> — Doctor Service has no Appointment entity
-
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

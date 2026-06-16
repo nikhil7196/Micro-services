@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder; // ✅ Added
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.usermicroservice.DTO.UserDTO;
@@ -94,8 +94,6 @@ public class UserService {
             user.setUserName(dto.getUserName());
             user.setUserRole(dto.getUserRole());
             user.setUserPhone(dto.getPhonenumber());
-
-            // ✅ Fixed: Password is now hashed before saving (was plain text before)
             if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
                 user.setPassword(passwordEncoder.encode(dto.getPassword()));
             }

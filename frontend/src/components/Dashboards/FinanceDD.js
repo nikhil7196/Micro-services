@@ -33,7 +33,6 @@ export default function FinanceDD() {
                     axios.get(`${BASE}/api/insurance/fetchAllInsuranceClaims`, { headers }),
                 ]);
 
-                // ✅ Invoice stats
                 if (invoicesRes.status === "fulfilled") {
                     const invoices = invoicesRes.value.data || [];
                     setTotalInvoices(invoices.length);
@@ -41,7 +40,6 @@ export default function FinanceDD() {
                     const revenue = invoices.reduce((sum, inv) => sum + (inv.amount || 0), 0);
                     setTotalRevenue(revenue);
 
-                    // ✅ Fixed: use paymentStatus not status
                     const unpaid = invoices
                         .filter(inv => (inv.paymentStatus || "").toUpperCase() !== "PAID")
                         .reduce((sum, inv) => sum + (inv.amount || 0), 0);
@@ -50,7 +48,6 @@ export default function FinanceDD() {
                     setRecentInvoices(invoices.slice(-5).reverse());
                 }
 
-                // ✅ Insurance claim stats
                 if (claimsRes.status === "fulfilled") {
                     const claims = claimsRes.value.data || [];
 

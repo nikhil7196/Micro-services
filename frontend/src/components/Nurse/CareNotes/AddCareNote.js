@@ -1,4 +1,3 @@
-// src/components/Nurse/CareNotes/AddCareNote.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -89,7 +88,7 @@ export default function AddCareNote() {
             {selectedPatient && (
                 <div className="alert alert-success d-flex justify-content-between align-items-center mb-4">
                     <span>
-                        ✅ Selected: <strong>{selectedPatient.patientName}</strong>
+                         Selected: <strong>{selectedPatient.patientName}</strong>
                         &nbsp;(ID: {selectedPatient.patientId}, {selectedPatient.patientGender})
                     </span>
                     <button className="btn btn-sm btn-outline-danger" onClick={() => setSelectedPatient(null)}>

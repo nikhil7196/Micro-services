@@ -3,8 +3,6 @@ package com.notification.DTO;
 import java.time.LocalDateTime;
 
 public class NotificationResponseDTO {
-
-    // ✅ Fixed field name: notificationId (lowercase d) — matches frontend m.notificationId
     private int notificationId;
     private String message;
     private String category;

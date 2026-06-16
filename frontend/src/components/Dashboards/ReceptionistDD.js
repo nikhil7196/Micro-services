@@ -35,24 +35,20 @@ export default function ReceptionistDD() {
     useEffect(() => {
         const fetchAll = async () => {
             try {
-                // ✅ Fetch all in parallel — real API calls
                 const [patientsRes, doctorsRes, appointmentsRes] = await Promise.allSettled([
                     axios.get(`${BASE}/api/patient/fetchAllPatients`, { headers }),
                     axios.get(`${BASE}/api/doctor/getAll`, { headers }),
                     axios.get(`${BASE}/api/appointment/getAll`, { headers }),
                 ]);
 
-                // ✅ Total Patients
                 if (patientsRes.status === "fulfilled") {
                     setTotalPatients(patientsRes.value.data.length || 0);
                 }
 
-                // ✅ Total Doctors
                 if (doctorsRes.status === "fulfilled") {
                     setTotalDoctors(doctorsRes.value.data.length || 0);
                 }
 
-                // ✅ Appointments Today + Completed Today + Recent Activity
                 if (appointmentsRes.status === "fulfilled") {
                     const appointments = appointmentsRes.value.data || [];
 
@@ -60,7 +56,6 @@ export default function ReceptionistDD() {
                     setAppointmentsToday(todayAppts.length);
                     setCompletedToday(todayAppts.filter(a => a.status === "COMPLETED").length);
 
-                    // ✅ Recent appointments — last 5 sorted by date desc
                     const recent = [...appointments]
                         .sort((a, b) => new Date(b.date) - new Date(a.date))
                         .slice(0, 5);

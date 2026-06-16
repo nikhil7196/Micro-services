@@ -13,7 +13,6 @@ export default function FindAllNotification() {
     async function fetchNotifications() {
         const url = "http://localhost:9002/notification/fetchallnotifications";
         try {
-            // ✅ Fixed: added Authorization header
             const res = await axios.get(url, { headers });
             setData(res.data);
         } catch (err) {
@@ -85,7 +84,6 @@ export default function FindAllNotification() {
                 ) : (
                     <div className="d-flex flex-column gap-3">
                         {data.map((m) => {
-                            // ✅ Fixed: notificationId (lowercase) matches fixed NotificationResponseDTO
                             const id     = m.notificationId || m.notificationID;
                             const cat    = categoryColor(m.category);
                             const status = statusColor(m.status);

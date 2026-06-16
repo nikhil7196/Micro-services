@@ -41,7 +41,7 @@ export default function UpdateWard() {
     }, []);
 
     let updateButtonHandler = () => {
-    let url = "http://localhost:9002/api/ward/updateWard";  // ✅ added /api
+    let url = "http://localhost:9002/api/ward/updateWard";  
     let data = {
         "ward": {
             "wardId": parseInt(wardId),
@@ -53,7 +53,7 @@ export default function UpdateWard() {
 
     axios.put(url, data, {
         headers: {
-            Authorization: "Bearer " + localStorage.getItem("token")  // ✅ added auth
+            Authorization: "Bearer " + localStorage.getItem("token")  
         }
     })
     .then((res) => {

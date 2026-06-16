@@ -18,7 +18,6 @@ export default function AddInsuranceClaim() {
 
         const url = "http://localhost:9002/api/insurance/addInsuranceClaim";
 
-        // ✅ Extra validation
         if (amount <= 0) {
             toast.warning("Amount must be greater than 0");
             setLoading(false);

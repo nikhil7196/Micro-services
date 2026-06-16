@@ -31,11 +31,9 @@ export default function DisplayCompliancePaginated() {
         }
       });
 
-      //  Response handling
       setRecords(res.data.content || []);
-      setPgno(res.data.number);         // current page
-      setTotalPages(res.data.totalPages); // total pages
-
+      setPgno(res.data.number);         
+      setTotalPages(res.data.totalPages); 
     } catch (err) {
       toast.error(err.response?.data || err.message);
     } finally {

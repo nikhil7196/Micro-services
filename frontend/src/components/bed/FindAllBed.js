@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 export default function FindAllBeds() {
 
     const [bedArr,     setBedArr]     = useState([]);
-    // ✅ Patient lookup map: { patientId: patientName }
     const [patientMap, setPatientMap] = useState({});
 
     const headers = { Authorization: "Bearer " + localStorage.getItem("token") };
 
     useEffect(() => {
-        // ✅ Fetch patients once for name lookup
         axios.get("http://localhost:9002/api/patient/fetchAllPatients", { headers })
             .then((res) => {
                 const map = {};

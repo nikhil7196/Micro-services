@@ -1,4 +1,3 @@
-// src/components/Nurse/CareNotes/ViewCareNotes.jsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -76,7 +75,7 @@ export default function ViewCareNotes() {
             {selectedPatient && (
                 <div className="alert alert-success d-flex justify-content-between align-items-center mb-4">
                     <span>
-                        ✅ Showing notes for: <strong>{selectedPatient.patientName}</strong>
+                         Showing notes for: <strong>{selectedPatient.patientName}</strong>
                         &nbsp;(ID: {selectedPatient.patientId})
                     </span>
                     <button

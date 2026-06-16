@@ -26,8 +26,6 @@ public class InsuranceClaimController {
 
     @Autowired
     InsuranceClaimService insuranceClaimService;
-
-    // ✅ ADD
     @PostMapping("/addInsuranceClaim")
     public ResponseEntity<InsuranceClaimResponse> addInsuranceClaim(
             @Valid @RequestBody InsuranceClaimDTO insuranceClaimDTO)
@@ -43,8 +41,6 @@ public class InsuranceClaimController {
 
         return ResponseEntity.status(201).body(dto);
     }
-
-    // ✅ GET BY ID — wrapped in response with patient name
     @GetMapping("/getInsuranceClaimById/{id}")
     public ResponseEntity<InsuranceClaimResponse> getInsuranceClaimById(
             @PathVariable("id") int id) throws InsuranceClaimNotFoundException {
@@ -53,14 +49,12 @@ public class InsuranceClaimController {
                 insuranceClaimService.getInsuranceClaimByIdWithPatient(id);
 
         InsuranceClaimResponse dto = new InsuranceClaimResponse();
-        dto.setInsuranceClaim(claim); // ✅ wrapped — frontend reads res.data.insuranceClaim
+        dto.setInsuranceClaim(claim);
         dto.setStatusCode(200);
         dto.setMessage("InsuranceClaim record retrieved successfully");
 
         return ResponseEntity.ok(dto);
     }
-
-    // ✅ UPDATE
     @PutMapping("/updateInsuranceClaim")
     public ResponseEntity<InsuranceClaimResponse> updateInsuranceClaim(
             @Valid @RequestBody InsuranceClaimDTO insuranceClaimDTO)
@@ -76,8 +70,6 @@ public class InsuranceClaimController {
 
         return ResponseEntity.status(200).body(dto);
     }
-
-    // ✅ UPDATE STATUS
     @PutMapping("/updateInsuranceClaimStatus/{claimId}")
     public ResponseEntity<InsuranceClaimResponse> updateClaimStatus(
             @PathVariable("claimId") int claimId,
@@ -92,28 +84,20 @@ public class InsuranceClaimController {
 
         return ResponseEntity.ok(dto);
     }
-
-    // ✅ DELETE
     @DeleteMapping("/deleteInsuranceClaim/{id}")
     public ResponseEntity<String> deleteInsuranceClaim(
             @PathVariable("id") int id) throws InsuranceClaimNotFoundException {
         return ResponseEntity.ok(this.insuranceClaimService.deleteInsuranceClaim(id));
     }
-
-    // ✅ GET ALL WITH PATIENT
     @GetMapping("/fetchAllInsuranceClaims")
     public ResponseEntity<List<InsuranceClaimWithPatientDTO>> getAllInsuranceClaims() {
         return ResponseEntity.ok(insuranceClaimService.getAllInsuranceClaimsWithPatient());
     }
-
-    // ✅ GET BY STATUS
     @GetMapping("/getInsuranceClaimsByStatus/{status}")
     public ResponseEntity<List<InsuranceClaim>> getClaimsByStatus(
             @PathVariable("status") String status) throws InsuranceClaimNotFoundException {
         return ResponseEntity.ok(insuranceClaimService.getClaimsByStatus(status));
     }
-
-    // ✅ PAGINATED WITH PATIENT
     @GetMapping("/fetchAllInsuranceClaimsPaginated")
     public ResponseEntity<Page<InsuranceClaimWithPatientDTO>> getAllInsuranceClaimsPaginated(
             @RequestParam("pgno") int pgno,

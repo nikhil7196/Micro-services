@@ -24,8 +24,6 @@ public class DoctorController {
     public DoctorController(DoctorService doctorService) {
         this.doctorService = doctorService;
     }
-
-    // ✅ Fixed: accepts DoctorDTO wrapper instead of Doctor directly
     @PostMapping("/add")
     public ResponseEntity<DoctorResponseDTO> addDoctor(@RequestBody DoctorDTO doctorDTO) {
         Doctor saved = doctorService.addDoctor(doctorDTO.getDoctor());
@@ -37,16 +35,12 @@ public class DoctorController {
         Doctor doctor = doctorService.updateDoctor(doctorDTO.getDoctor());
         return ResponseEntity.ok(mapToDTO(doctor));
     }
-
-    // ✅ Fixed: explicit @PathVariable name
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDoctor(
             @PathVariable("id") int id) throws DoctorNotFoundException {
         doctorService.deleteDoctor(id);
         return ResponseEntity.ok("Doctor deleted successfully");
     }
-
-    // ✅ Fixed: explicit @PathVariable name + returns DoctorResponseDTO
     @GetMapping("/get/{id}")
     public ResponseEntity<DoctorResponseDTO> getDoctorById(
             @PathVariable("id") int id) throws DoctorNotFoundException {
@@ -68,30 +62,21 @@ public class DoctorController {
         Pageable pageable = PageRequest.of(pgno, size, sort);
         return ResponseEntity.ok(doctorService.getAllDoctorsWithPagination(pageable));
     }
-
-    // ✅ Fixed: explicit @RequestParam name
     @GetMapping("/getbyemail")
     public ResponseEntity<DoctorResponseDTO> getDoctorByEmail(
             @RequestParam("email") String email) throws DoctorNotFoundException {
         return ResponseEntity.ok(mapToDTO(doctorService.getDoctorByEmail(email)));
     }
-
-    // ✅ Also add /by-email alias — CompleteProfile.js uses /by-email
     @GetMapping("/by-email")
     public ResponseEntity<DoctorResponseDTO> getDoctorByEmailAlias(
             @RequestParam("email") String email) throws DoctorNotFoundException {
         return ResponseEntity.ok(mapToDTO(doctorService.getDoctorByEmail(email)));
     }
-
-    // ✅ Search by name
     @GetMapping("/search")
     public ResponseEntity<List<Doctor>> searchByName(
             @RequestParam("name") String name) {
         return ResponseEntity.ok(doctorService.getDoctorsByName(name));
     }
-
-    // ✅ Helper — maps Doctor entity to DoctorResponseDTO
- // ✅ Simple — just wrap the Doctor entity
     private DoctorResponseDTO mapToDTO(Doctor doctor) {
         DoctorResponseDTO dto = new DoctorResponseDTO();
         dto.setDoctor(doctor);

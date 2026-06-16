@@ -12,9 +12,6 @@ public class InsuranceClaim {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int insuranceClaimId;
-
-    // ✅ Changed from plain int to embedded PatientRef
-    // matches monolithic structure: { "patient": { "patientId": 1 } }
     @Embedded
     private PatientRef patient;
 

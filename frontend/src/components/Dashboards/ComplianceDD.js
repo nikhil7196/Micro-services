@@ -11,7 +11,6 @@ export default function ComplianceDD() {
   const [kpiReports, setKpiReports] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Real operational KPI data from microservices
   const [occupancyRate, setOccupancyRate] = useState(null);
   const [appointmentFulfillmentRate, setAppointmentFulfillmentRate] =
     useState(null);
@@ -30,27 +29,22 @@ export default function ComplianceDD() {
     setLoading(true);
 
     Promise.allSettled([
-      // ✅ Compliance + KPI reports
       axios.get(`${BASE}/api/compliance-reports/fetchAllComplianceReports`, {
         headers,
       }),
       axios.get(`${BASE}/api/kpi-report/fetchAllKPIReports`, { headers }),
 
-      // ✅ Real operational KPIs from microservices
       axios.get(`${BASE}/api/beds/getAllBeds`, { headers }),
       axios.get(`${BASE}/api/appointment/getAll`, { headers }),
       axios.get(`${BASE}/api/insurance/fetchAllInsuranceClaims`, { headers }),
     ])
       .then(([compRes, kpiRes, bedsRes, apptsRes, claimsRes]) => {
-        // Compliance reports
         if (compRes.status === "fulfilled")
           setComplianceReports(compRes.value.data || []);
 
-        // KPI reports
         if (kpiRes.status === "fulfilled")
           setKpiReports(kpiRes.value.data || []);
 
-        // ✅ Occupancy Rate = occupied beds / total beds * 100
         if (bedsRes.status === "fulfilled") {
           const beds = bedsRes.value.data || [];
           const occupied = beds.filter(
@@ -60,7 +54,6 @@ export default function ComplianceDD() {
           setOccupancyRate(total > 0 ? (occupied / total) * 100 : 0);
         }
 
-        // ✅ Appointment Fulfillment Rate = completed / total * 100
         if (apptsRes.status === "fulfilled") {
           const appts = apptsRes.value.data || [];
           const completed = appts.filter(
@@ -72,7 +65,6 @@ export default function ComplianceDD() {
           );
         }
 
-        // ✅ Claim Success Rate = APPROVED claims / total claims * 100
         if (claimsRes.status === "fulfilled") {
           const claims = claimsRes.value.data || [];
           const approved = claims.filter(

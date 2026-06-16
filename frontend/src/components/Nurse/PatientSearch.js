@@ -1,4 +1,3 @@
-// src/components/Nurse/PatientSearch.jsx
 import { useState } from "react";
 import axios from "axios";
 
@@ -15,11 +14,11 @@ export default function PatientSearch({ onSelect }) {
     setError("");
     setSearched(false);
 
-    const token = localStorage.getItem("token");  // ✅ get token
+    const token = localStorage.getItem("token");  
 
     axios.get(`http://localhost:9002/api/patient/search?name=${query}`, {
         headers: {
-            Authorization: `Bearer ${token}`      // ✅ send token
+            Authorization: `Bearer ${token}`      
         }
     })
     .then((res) => {

@@ -1,4 +1,3 @@
-// src/components/Nurse/NurseHome.jsx
 import { Outlet } from 'react-router-dom';
 import TopNavbar from '../common/TopNavbar';
 

@@ -27,7 +27,6 @@ export default function Doctorreg() {
 
     const url = "http://localhost:9002/api/doctor/add";
 
-    // ✅ Fixed: wrapped in { doctor: {...} }
     const data = {
         doctor: {
             name: doctorName.trim(),
@@ -49,7 +48,6 @@ export default function Doctorreg() {
         setLoading(false);
     })
     .catch((err) => {
-        // ✅ Fixed: extract message string not whole object
         const msg = err.response?.data?.message
             || err.response?.data?.error
             || err.message
@@ -105,7 +103,7 @@ export default function Doctorreg() {
                     )}
                     {success && (
                         <div className="alert alert-success py-2 small" role="alert">
-                            ✅ {success}
+                             {success}
                         </div>
                     )}
 

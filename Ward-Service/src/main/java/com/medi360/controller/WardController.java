@@ -32,8 +32,6 @@ public class WardController {
         response.setMessage("Ward created successfully");
         return ResponseEntity.status(201).body(response);
     }
-
-    // ✅ Fixed: was returning 201 for a GET — changed to 200
     @GetMapping("/getAllWards")
     public ResponseEntity<List<Ward>> getAllWard() {
         return ResponseEntity.ok(wardService.getAllWard());
@@ -41,7 +39,7 @@ public class WardController {
 
     @GetMapping("/getWard/{wardId}")
     public ResponseEntity<WardResponseDTO> getWardById(
-            @PathVariable("wardId") int wardId) { // ✅ explicit name
+            @PathVariable("wardId") int wardId) {
         Ward ward = wardService.getWardById(wardId);
         WardResponseDTO dto = new WardResponseDTO();
         dto.setWard(ward);
@@ -63,25 +61,23 @@ public class WardController {
 
     @DeleteMapping("/deleteWard/{wardId}")
     public ResponseEntity<String> deleteWard(
-            @PathVariable("wardId") int wardId) throws WardNotFoundException { // ✅ explicit name
+            @PathVariable("wardId") int wardId) throws WardNotFoundException {
         wardService.deleteWard(wardId);
         return ResponseEntity.ok("Ward deleted successfully");
     }
 
     @GetMapping("/{wardId}/occupancy-report")
     public ResponseEntity<String> getOccupancyReport(
-            @PathVariable("wardId") int wardId) throws WardNotFoundException { // ✅ explicit name
+            @PathVariable("wardId") int wardId) throws WardNotFoundException {
         String report = wardService.getWardOccupancyReport(wardId);
         return ResponseEntity.ok(report);
     }
-
-    // ✅ Fixed: returns ResponseEntity for consistency
     @GetMapping("/getAllWardsPaginated")
     public ResponseEntity<Page<Ward>> getAllWardsPaginated(
-            @RequestParam("pgno") int pgno,          // ✅ explicit name
-            @RequestParam("size") int size,           // ✅ explicit name
-            @RequestParam("sorting") String sorting,  // ✅ explicit name
-            @RequestParam("asc") boolean asc) {       // ✅ explicit name
+            @RequestParam("pgno") int pgno,
+            @RequestParam("size") int size,
+            @RequestParam("sorting") String sorting,
+            @RequestParam("asc") boolean asc) {
         Sort sort = asc ? Sort.by(sorting).ascending() : Sort.by(sorting).descending();
         Pageable pageable = PageRequest.of(pgno, size, sort);
         return ResponseEntity.ok(this.wardService.getAllWardsWithPaginated(pageable));
